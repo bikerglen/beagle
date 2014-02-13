@@ -60,7 +60,7 @@ int32_t gBuffer = 0;
 uint16_t gLevels[DISPLAY_HEIGHT][DISPLAY_WIDTH];
 
 // global object to create animated pattern
-Pattern *gPattern = NULL;
+Circle *gPattern = NULL;
 
 // prototypes
 void Quit (int sig);
