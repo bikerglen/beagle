@@ -50,10 +50,10 @@ class Perlin : public Pattern
         Perlin (const int32_t width, const int32_t height, int32_t mode);
 
         // constructor
-		// m_hue_option is hue offset from 0.0 to 1.0 for mode 1, hue step for modes 2 and 3
+        // m_hue_option is hue offset from 0.0 to 1.0 for mode 1, hue step for modes 2 and 3
         Perlin (const int32_t width, const int32_t height,
-			const int32_t mode, const float xy_scale, 
-			const float z_step, const float z_depth, const float hue_options);
+            const int32_t mode, const float xy_scale, 
+            const float z_step, const float z_depth, const float hue_options);
 
         // destructor
         ~Perlin (void);
@@ -64,38 +64,38 @@ class Perlin : public Pattern
         // calculate next frame in the animation
         bool next (void);
 
-		// 3d perlin noise function
-		float noise (float x, float y, float z);
+        // 3d perlin noise function
+        float noise (float x, float y, float z);
 
     private:
 
-		// mode:
-		//   1 = fixed background hue
-		//   2 = hue rotates and varies with noise
-		//   3 = hue rotates, noise varies brightness
-		const int32_t m_mode; 
+        // mode:
+        //   1 = fixed background hue
+        //   2 = hue rotates and varies with noise
+        //   3 = hue rotates, noise varies brightness
+        const int32_t m_mode; 
 
-		// x and y scale of noise
-		float m_xy_scale;
+        // x and y scale of noise
+        float m_xy_scale;
 
-		// step in the z direction between displayed x-y planes
-		float m_z_step;
-	
-		// depth in the z direction before the pattern repeats
-		float m_z_depth;
+        // step in the z direction between displayed x-y planes
+        float m_z_step;
+    
+        // depth in the z direction before the pattern repeats
+        float m_z_depth;
 
-		// background hue for mode 1, from 0.0 to 1.0
-		// hue step size for modes 2 and 3
-		float m_hue_options;
+        // background hue for mode 1, from 0.0 to 1.0
+        // hue step size for modes 2 and 3
+        float m_hue_options;
 
-		// current z coordinate, mod z depth
-		float m_z_state;
-	
-		// current hue, mod 1.0
-		float m_hue_state;
-		
-		// current minimum and maximum noise values for normalization
-		float m_min, m_max;
+        // current z coordinate, mod z depth
+        float m_z_state;
+    
+        // current hue, mod 1.0
+        float m_hue_state;
+        
+        // current minimum and maximum noise values for normalization
+        float m_min, m_max;
 };
 
 #endif

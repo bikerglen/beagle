@@ -84,9 +84,9 @@ uint16_t Pattern::translateHueValue (int32_t hue, float value)
         case 5: r = 0xff,    g = 0xff-lo, b = 0;       break;
     }
 
-	r = ((float)r + 0.5) * value;
-	g = ((float)g + 0.5) * value;
-	b = ((float)b + 0.5) * value;
+    r = ((float)r + 0.5) * value;
+    g = ((float)g + 0.5) * value;
+    b = ((float)b + 0.5) * value;
 
     r = gammaLut[r];
     g = gammaLut[g];
