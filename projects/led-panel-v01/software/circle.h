@@ -24,65 +24,68 @@
 
 class Circle : public Pattern
 {
-	public:
-		
-		// constructor
-		Circle 
-		(
-			const int32_t width, const int32_t height,
-			const float center_x, const float center_y,
-			const float speed, const float scale
-		);
+    public:
+        
+        // constructor
+        Circle (const int32_t width, const int32_t height);
 
-		// destructor
-		~Circle (void);
+        // constructor
+        Circle 
+        (
+            const int32_t width, const int32_t height,
+            const float center_x, const float center_y,
+            const float speed, const float scale
+        );
 
-		// reset to first frame in animation
-		void init (void);
+        // destructor
+        ~Circle (void);
 
-		// calculate next frame in the animation
-		bool next (void);
+        // reset to first frame in animation
+        void init (void);
 
-		// get / set center of circle
-		void getCenter (float &x, float &y) {
-			x = m_center_x; y = m_center_y;
-		}
-		void setCenter (const float x, const float y) {
-			m_center_x = x; m_center_y = y;
-			calculateDistanceLut ();
-		}
+        // calculate next frame in the animation
+        bool next (void);
 
-		// get / set scale of the circle
-		// 0.5 -> diameter = 2x width of display
-		// 1.0 -> diameter = width of panel
-		// 2.0 -> diameter = 1/2 width of display
-		float getScale (void) {
-			return m_scale;
-		}
-		void setScale (const float scale) {
-			m_scale = scale;
-		}
+        // get / set center of circle
+        void getCenter (float &x, float &y) {
+            x = m_center_x; y = m_center_y;
+        }
+        void setCenter (const float x, const float y) {
+            m_center_x = x; m_center_y = y;
+            calculateDistanceLut ();
+        }
 
-		// get set speed
-		// this is the increment added/subtracted from the internal state
-		// variable after computing each frame of the animation
-		float getSpeed (void) {
-			return m_speed;
-		}
-		void setSpeed (const float speed) {
-			m_speed = speed;
-		}
+        // get / set scale of the circle
+        // 0.5 -> diameter = 2x width of display
+        // 1.0 -> diameter = width of panel
+        // 2.0 -> diameter = 1/2 width of display
+        float getScale (void) {
+            return m_scale;
+        }
+        void setScale (const float scale) {
+            m_scale = scale;
+        }
 
-	private:
+        // get set speed
+        // this is the increment added/subtracted from the internal state
+        // variable after computing each frame of the animation
+        float getSpeed (void) {
+            return m_speed;
+        }
+        void setSpeed (const float speed) {
+            m_speed = speed;
+        }
 
-		float m_speed;
-		float m_scale;
-		float m_center_x;
-		float m_center_y;
-		float m_state;
+    private:
 
-		void calculateDistanceLut (void);
-		vector<vector<float> >	m_distance_lut;
+        float m_speed;
+        float m_scale;
+        float m_center_x;
+        float m_center_y;
+        float m_state;
+
+        void calculateDistanceLut (void);
+        vector<vector<float> >  m_distance_lut;
 
 };
 
