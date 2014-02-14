@@ -36,20 +36,25 @@ using namespace std;
 // constructors
 //
 
-Circle::Circle (const int32_t width, const int32_t height)
-: Pattern (width, height), 
+Circle::Circle
+(
+    const int32_t width, const int32_t height
+) : 
+    Pattern (width, height), 
     m_center_x((width-1.0)/2.0), m_center_y((height-1.0)/2.0),
     m_speed(1.0), m_scale(1.0)
 {
     calculateDistanceLut ();
 }
 
+
 Circle::Circle 
 (
     const int32_t width, const int32_t height,
     const float center_x, const float center_y,
     const float speed, const float scale
-) : Pattern (width, height), 
+) : 
+    Pattern (width, height), 
     m_center_x(center_x), m_center_y(center_y),
     m_speed(speed), m_scale(scale)
 {

@@ -80,18 +80,18 @@ int main (int argc, char *argv[])
     // open fpga memory device
     gFd = open ("/dev/logibone_mem", O_RDWR | O_SYNC);
 
-	// initialize levels to all off
-	BlankDisplay ();
+    // initialize levels to all off
+    BlankDisplay ();
 
-	// create a new pattern object -- circle off center off display
-	gPattern = new Circle (DISPLAY_WIDTH, DISPLAY_HEIGHT,
-		(DISPLAY_WIDTH - 1.0) / 2.0 -4, (DISPLAY_HEIGHT - 1.0) / 2.0 + 4,
-		1.0, 0.75);
+    // create a new pattern object -- circle off center off display
+    gPattern = new Circle (DISPLAY_WIDTH, DISPLAY_HEIGHT,
+        (DISPLAY_WIDTH - 1.0) / 2.0 -4, (DISPLAY_HEIGHT - 1.0) / 2.0 + 4,
+        1.0, 0.75);
 
-	// reset to first frame
-	gPattern->init ();
+    // reset to first frame
+    gPattern->init ();
 
-	// install timer handler
+    // install timer handler
     memset (&sa, 0, sizeof (sa));
     sa.sa_handler = &timer_handler;
     sigaction (SIGALRM, &sa, NULL);
@@ -105,15 +105,15 @@ int main (int argc, char *argv[])
     timer.it_interval.tv_usec = 20000;
 
     // start the timer
-	setitimer (ITIMER_REAL, &timer, NULL);
+    setitimer (ITIMER_REAL, &timer, NULL);
 
-	// wait forever
-	while (1) {
-		sleep (1);
-	}
+    // wait forever
+    while (1) {
+        sleep (1);
+    }
 
-	// delete pattern object
-	delete gPattern;
+    // delete pattern object
+    delete gPattern;
 
     // close fpga device
     close (gFd);
@@ -124,31 +124,31 @@ int main (int argc, char *argv[])
 
 void Quit (int sig)
 {
-	if (gFd != 0) {
-		close (gFd);
-		gFd = 0;
-	}
-	exit (-1);
+    if (gFd != 0) {
+        close (gFd);
+        gFd = 0;
+    }
+    exit (-1);
 }
 
 
 void BlankDisplay (void)
 {
-	// initialize levels to all off
-	for (int32_t row = 0; row < DISPLAY_HEIGHT; row++) {
-		for (int32_t col = 0; col < DISPLAY_WIDTH; col++) {
-			gLevels[row][col] = 0x0000;
-		}
-	}
+    // initialize levels to all off
+    for (int32_t row = 0; row < DISPLAY_HEIGHT; row++) {
+        for (int32_t col = 0; col < DISPLAY_WIDTH; col++) {
+            gLevels[row][col] = 0x0000;
+        }
+    }
 
-	// send levels to board
-	WriteLevels ();
+    // send levels to board
+    WriteLevels ();
 }
 
 
 void Write16 (uint16_t address, uint16_t data)
 {
-	pwrite (gFd, &data, 2, address);
+    pwrite (gFd, &data, 2, address);
 }
 
 
@@ -156,21 +156,21 @@ void WriteLevels (void)
 {
     int row, col;
 
-	// ping pong between buffers
+    // ping pong between buffers
     if (gBuffer == 0) {
         Write16 (FPGA_PANEL_ADDR_REG, 0x0000);
     } else {
         Write16 (FPGA_PANEL_ADDR_REG, 0x0400);
     }
 
-	// write data to selected buffer
+    // write data to selected buffer
     for (row = 0; row < DISPLAY_HEIGHT; row++) {
         for (col = 0; col < DISPLAY_WIDTH; col++) {
             Write16 (FPGA_PANEL_DATA_REG, gLevels[row][col]);
         }
     }
 
-	// make that buffer active
+    // make that buffer active
     if (gBuffer == 0) {
         Write16 (FPGA_PANEL_BUFFER_REG, 0x0000);
         gBuffer = 1;
@@ -183,11 +183,11 @@ void WriteLevels (void)
 
 void timer_handler (int signum)
 {
-	// write levels to display
-	WriteLevels ();
+    // write levels to display
+    WriteLevels ();
 
-	// calculate next frame in animation
-	if (gPattern != NULL) {
-		bool patternComplete = gPattern->next ();
-	}
+    // calculate next frame in animation
+    if (gPattern != NULL) {
+        bool patternComplete = gPattern->next ();
+    }
 }
