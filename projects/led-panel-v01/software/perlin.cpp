@@ -135,7 +135,8 @@ bool Perlin::next (void)
             // generate noise at plane z_depth - z_state 
             n2 = this->noise (sx, sy, m_z_state - m_z_depth);
 
-            // combine noises
+            // combine noises to make a seamless transition from plane 
+			// at z = z_depth back to plane at z = 0
             n = ((m_z_depth - m_z_state) * n1 + (m_z_state) * n2) / m_z_depth;
 
             // normalize combined noises to a number between 0 and 1
