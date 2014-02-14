@@ -26,33 +26,34 @@ extern const uint8_t gammaLut[];
 
 class Pattern
 {
-	public:
+    public:
 
-		// constructor
-		Pattern (const int32_t width, const int32_t height) :
-			m_width(width), m_height(height) { }
+        // constructor
+        Pattern (const int32_t width, const int32_t height) :
+            m_width(width), m_height(height) { }
 
-		// destructor
-		~Pattern (void) { }
+        // destructor
+        ~Pattern (void) { }
 
-		// reset to first frame in animation
-		virtual void init (void) = 0;
+        // reset to first frame in animation
+        virtual void init (void) = 0;
 
-		// calculate next frame in the animation
-		virtual bool next (void) = 0;
+        // calculate next frame in the animation
+        virtual bool next (void) = 0;
 
-		// get width and height
-		void getDimensions (int32_t &width, int32_t &height) {
-			width = m_width; height = m_height;
-		}
+        // get width and height
+        void getDimensions (int32_t &width, int32_t &height) {
+            width = m_width; height = m_height;
+        }
 
-		uint16_t translateHue (int32_t hue);
-		
-	protected:
-		const int32_t m_width;
-		const int32_t m_height;
+        uint16_t translateHue (int32_t hue);
+        uint16_t translateHueValue (int32_t hue, float value);
+        
+    protected:
+        const int32_t m_width;
+        const int32_t m_height;
 
-	private:
+    private:
 };
 
 #endif
