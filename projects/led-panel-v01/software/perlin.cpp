@@ -241,6 +241,8 @@ float Perlin::noise (float x, float y, float z)
 {
     float fx, fy, fz;
     int A, AA, AB, B, BA, BB;
+
+	// find nearest whole number to each input coordinate
     int i = (int)floorf(x);
     int j = (int)floorf(y);
     int k = (int)floorf(z);
@@ -248,11 +250,23 @@ float Perlin::noise (float x, float y, float z)
     int jj = j + 1;
     int kk = k + 1;
 
+	// ensure all inputs to permutation functions are between 0 and 255
+	i &= 0xff;
+	ii &= 0xff;
+	j &= 0xff;
+	jj &= 0xff;
+	k &= 0xff;
+	kk &= 0xff;
+
+	// convert each input to a number between 0 and 1
     x -= floorf(x); y -= floorf(y); z -= floorf(z);
+
+	// apply easing function
     fx = x*x*x * (x * (x * 6 - 15) + 10);
     fy = y*y*y * (y * (y * 6 - 15) + 10);
     fz = z*z*z * (z * (z * 6 - 15) + 10);
 
+	// apply permutation function
     A = PERM[i];
     AA = PERM[A + j];
     AB = PERM[A + jj];
@@ -260,9 +274,7 @@ float Perlin::noise (float x, float y, float z)
     BA = PERM[B + j];
     BB = PERM[B + jj];
 
-    while (k < 0) k += 256;
-    while (kk < 0) kk += 256;
-
+	// six linear interpolations
     return lerp(fz, lerp(fy, lerp(fx, grad3(PERM[AA + k], x, y, z),
                                       grad3(PERM[BA + k], x - 1, y, z)),
                              lerp(fx, grad3(PERM[AB + k], x, y - 1, z),

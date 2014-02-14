@@ -87,7 +87,7 @@ int main (int argc, char *argv[])
     gPattern = new Perlin (DISPLAY_WIDTH, DISPLAY_HEIGHT, 2, 8.0/64.0, 0.0125, 512.0, 0.005);
 
     // create a new pattern object -- perlin noise, mode 1 short repeat
-    // gPattern = new Perlin (DISPLAY_WIDTH, DISPLAY_HEIGHT, 1, 8.0/64.0, 0.0125, 5.0, 0.2);
+    // gPattern = new Perlin (DISPLAY_WIDTH, DISPLAY_HEIGHT, 1, 8.0/64.0, 0.0125, 1.0, 0.2);
 
     // reset to first frame
     gPattern->init ();
