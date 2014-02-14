@@ -34,7 +34,7 @@
 //
 //  http://www.mrl.nyu.edu/~perlin/doc/oscar.html
 //
-// Excellent explanation of Perlin noise and seamless looping and tiling here:
+// Excellent explanation of Perlin noise and seamless looping and tiling here: 
 // 
 //  http://webstaff.itn.liu.se/~stegu/TNM022-2005/perlinnoiselinks/perlin-noise-math-faq.html
 //
