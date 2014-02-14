@@ -1,0 +1,1 @@
+These scripts set up the Linux device tree for use with the LED panel FPGA bitfile. The GPMC bus has been slowed down versus the scripts shipped with the LogiBone board.
