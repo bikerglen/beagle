@@ -19,8 +19,8 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //=============================================================================================
 
-#ifndef __circle_h_
-#define __circle_h_
+#ifndef __wash_h_
+#define __wash_h_
 
 class Wash : public Pattern
 {
