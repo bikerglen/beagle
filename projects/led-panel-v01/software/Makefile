@@ -33,6 +33,18 @@ runwash: runwash.o pattern.o wash.o
 runtwinkle: runtwinkle.o pattern.o twinkle.o 
 	g++ -o runtwinkle runtwinkle.o pattern.o twinkle.o 
 
+runcircle.o: runcircle.cpp globals.h pattern.h circle.h
+	g++ -c runcircle.cpp
+
+runperlin.o: runperlin.cpp globals.h pattern.h perlin.h
+	g++ -c runperlin.cpp
+
+runwash.o: runwash.cpp globals.h pattern.h wash.h
+	g++ -c runwash.cpp
+
+runtwinkle.o: runtwinkle.cpp globals.h pattern.h twinkle.h
+	g++ -c runtwinkle.cpp
+
 pattern.o: pattern.cpp globals.h gammalut.h pattern.h
 	g++ -c pattern.cpp
 
