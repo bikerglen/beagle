@@ -19,13 +19,16 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #==============================================================================================
 
-all: runcircle runperlin blank picture
+all: runcircle runperlin runwash blank picture
 
 runcircle: runcircle.o pattern.o circle.o 
 	g++ -o runcircle runcircle.o pattern.o circle.o 
 
 runperlin: runperlin.o pattern.o perlin.o 
 	g++ -o runperlin runperlin.o pattern.o perlin.o 
+
+runwash: runwash.o pattern.o wash.o 
+	g++ -o runwash runwash.o pattern.o wash.o 
 
 pattern.o: pattern.cpp globals.h gammalut.h pattern.h
 	g++ -c pattern.cpp
@@ -36,6 +39,9 @@ circle.o: circle.cpp globals.h pattern.h circle.h
 perlin.o: perlin.cpp globals.h pattern.h perlin.h
 	g++ -c perlin.cpp
 
+wash.o: wash.cpp globals.h pattern.h wash.h
+	g++ -c wash.cpp
+
 blank: blank.cpp
 	g++ -o blank blank.cpp
 
@@ -43,4 +49,4 @@ picture: picture.cpp gammalut.h
 	g++ -o picture picture.cpp
 
 clean:
-	rm -f runcircle runperlin blank picture runcircle.o runperlin.o pattern.o circle.o perlin.o
+	rm -f runcircle runperlin runwash blank picture runcircle.o runperlin.o runwash.o pattern.o circle.o perlin.o wash.o
