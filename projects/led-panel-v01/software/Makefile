@@ -55,4 +55,4 @@ picture: picture.cpp gammalut.h
 	g++ -o picture picture.cpp
 
 clean:
-	rm -f runcircle runperlin runwash runtwinkle blank picture runcircle.o runperlin.o runwash.o pattern.o circle.o perlin.o wash.o twinkle.o
+	rm -f runcircle runperlin runwash runtwinkle blank picture runcircle.o runperlin.o runwash.o runtwinkle.o pattern.o circle.o perlin.o wash.o twinkle.o
