@@ -65,10 +65,43 @@ class Perlin : public Pattern
         // calculate next frame in the animation
         bool next (void);
 
-        // 3d perlin noise function
-        float noise (float x, float y, float z);
+        // get / set scale
+        float getScale (void) {
+            return m_xy_scale;
+        }
+        void setScale (float xy_scale) {
+            m_xy_scale = xy_scale;
+        }
+
+        // get / set z step
+        float getZStep (void) {
+            return m_z_step;
+        }
+        void setZStep (float z_step) {
+            m_z_step = z_step;
+        }
+
+        // get / set z depth
+        float getZDepth (void) {
+            return m_z_depth;
+        }
+        void setZDepth (float z_depth) {
+            m_z_depth = z_depth;
+            m_z_state = 0;                  
+        }
+
+        // get / set hue options
+        float getHueOptions (void) {
+            return m_hue_options;
+        }
+        void setHueOptions (float hue_options) {
+            m_hue_options = hue_options;
+        }
 
     private:
+
+        // 3d perlin noise function
+        float noise (float x, float y, float z);
 
         // mode:
         //   1 = fixed background hue
