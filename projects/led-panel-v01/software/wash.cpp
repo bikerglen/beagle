@@ -86,9 +86,9 @@ bool Wash::next (void)
 
 	float rads = m_angle*M_PI/180.0;
 	for (row = 0; row < m_height; row++) {
-		float x = row - 15.5;
+		float x = row - ((m_width-1.0)/2.0);
 		for (col = 0; col < m_width; col++) {
-			float y = 15.5 - col;
+			float y = ((m_height-1.0)/2.0) - col;
 			float xp = x * cos (rads) - y * sin (rads);
 			// float yp = x * sin (rads) + y * cos (rads);
 			hue = m_state + m_scale * xp + 0.5;
