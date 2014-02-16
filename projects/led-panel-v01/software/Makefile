@@ -19,7 +19,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #==============================================================================================
 
-all: runcircle runperlin runwash runtwinkle blank picture
+all: runcircle runperlin runwash runtwinkle runwipe blank picture
 
 runcircle: runcircle.o pattern.o circle.o 
 	g++ -o runcircle runcircle.o pattern.o circle.o 
@@ -33,6 +33,9 @@ runwash: runwash.o pattern.o wash.o
 runtwinkle: runtwinkle.o pattern.o twinkle.o 
 	g++ -o runtwinkle runtwinkle.o pattern.o twinkle.o 
 
+runwipe: runwipe.o pattern.o wipe.o 
+	g++ -o runwipe runwipe.o pattern.o wipe.o 
+
 runcircle.o: runcircle.cpp globals.h pattern.h circle.h
 	g++ -c runcircle.cpp
 
@@ -44,6 +47,9 @@ runwash.o: runwash.cpp globals.h pattern.h wash.h
 
 runtwinkle.o: runtwinkle.cpp globals.h pattern.h twinkle.h
 	g++ -c runtwinkle.cpp
+
+runwipe.o: runwipe.cpp globals.h pattern.h wipe.h
+	g++ -c runwipe.cpp
 
 pattern.o: pattern.cpp globals.h gammalut.h pattern.h
 	g++ -c pattern.cpp
@@ -60,6 +66,9 @@ wash.o: wash.cpp globals.h pattern.h wash.h
 twinkle.o: twinkle.cpp globals.h pattern.h twinkle.h
 	g++ -c twinkle.cpp
 
+wipe.o: wipe.cpp globals.h pattern.h wipe.h
+	g++ -c wipe.cpp
+
 blank: blank.cpp
 	g++ -o blank blank.cpp
 
@@ -67,4 +76,4 @@ picture: picture.cpp gammalut.h
 	g++ -o picture picture.cpp
 
 clean:
-	rm -f runcircle runperlin runwash runtwinkle blank picture runcircle.o runperlin.o runwash.o runtwinkle.o pattern.o circle.o perlin.o wash.o twinkle.o
+	rm -f runcircle runperlin runwash runtwinkle runwipe blank picture runcircle.o runperlin.o runwash.o runtwinkle.o pattern.o circle.o perlin.o wash.o twinkle.o wipe.o runwipe.o
