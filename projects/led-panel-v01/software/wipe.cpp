@@ -139,5 +139,5 @@ bool Wipe::next (void)
 		m_timer = 0;
 	}
 
-	return (m_timer == 0) && (m_color == 0) && (m_state == 0);
+	return (m_timer == 0) && (m_state == 0);
 }

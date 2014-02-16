@@ -186,7 +186,14 @@ void timer_handler (int signum)
     if (gPattern != NULL) {
         bool patternComplete = gPattern->next ();
 		if (patternComplete) {
-			gPattern->setDirection ((gPattern->getDirection () + 1) & 0xf);
+			int32_t d = gPattern->getDirection ();
+			switch (d) {
+				case 0: d = 2; break;
+				case 1: d = 3; break;
+				case 2: d = 1; break;
+				case 3: d = 0; break;
+			}
+			gPattern->setDirection (d);
 		}
     }
 }
