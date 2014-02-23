@@ -158,7 +158,7 @@ input [15:0] twrdata;
 integer cycle;
 
 begin
-	for (cycle = 0; cycle < WR_CYCLE_TIME; cycle++)
+	for (cycle = 0; cycle < WR_CYCLE_TIME; cycle = cycle + 1)
 	begin
 		@ (posedge gpmc_fclk)
 
@@ -198,7 +198,7 @@ begin
 			gpmc_wrdata <= twrdata;
 	end
 
-	for (cycle = 0; cycle < CYCLE_2_CYCLE_DELAY; cycle++)
+	for (cycle = 0; cycle < CYCLE_2_CYCLE_DELAY; cycle = cycle + 1)
 	begin
 		@ (posedge gpmc_fclk)
 			gpmc_state <= GPMC_DELAY;
@@ -226,8 +226,7 @@ output [15:0] trddata;
 integer cycle;
 
 begin
-end
-	for (cycle = 0; cycle < RD_CYCLE_TIME; cycle++)
+	for (cycle = 0; cycle < RD_CYCLE_TIME; cycle = cycle + 1)
 	begin
 		@ (posedge gpmc_fclk)
 			// state
@@ -272,7 +271,7 @@ end
 			end
 	end
 
-	for (cycle = 0; cycle < CYCLE_2_CYCLE_DELAY; cycle++)
+	for (cycle = 0; cycle < CYCLE_2_CYCLE_DELAY; cycle = cycle + 1)
 	begin
 		@ (posedge gpmc_fclk)
 			gpmc_state <= GPMC_DELAY;
@@ -284,6 +283,7 @@ end
 			gpmc_dir <= GPMC_DIR_OUT;
 			gpmc_mux <= GPMC_MUX_DATA;
 	end
+end
 
 endtask
 
