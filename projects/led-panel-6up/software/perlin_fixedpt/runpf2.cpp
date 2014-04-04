@@ -90,7 +90,7 @@ int main (int argc, char *argv[])
     BlankDisplay ();
 
     // create a new pattern object -- perlin noise, mode 2 long repeating
-    gPattern = new Perlin (DISPLAY_WIDTH, DISPLAY_HEIGHT, 2, 4.0/64.0, 1.0/64.0, 256.0, 0.005);
+    gPattern = new Perlin (DISPLAY_WIDTH, DISPLAY_HEIGHT, 2, 6.0/64.0, 1.0/64.0, 256.0, 0.005);
 
     // create a new pattern object -- perlin noise, mode 1 short repeat
     // gPattern = new Perlin (DISPLAY_WIDTH, DISPLAY_HEIGHT, 1, 8.0/64.0, 0.0125, 1.0, 0.2);
