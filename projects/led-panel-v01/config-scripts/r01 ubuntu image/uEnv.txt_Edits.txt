@@ -1,0 +1,12 @@
+sudo mkdir /mnt/boot
+sudo mount /dev/mmcblk0p1 /mnt/boot
+sudo vi /mnt/boot/uEnv.txt
+
+change optargs to:
+
+optargs=capemgr.disable_partno=BB-BONE-EMMC-2G,BB-BONELT-HDMI,BB-BONELT-HDMIN
+
+sudo umount /mnt/boot
+sudo shutdown -h now
+
+then power the board back on once it has finished shutting down.
