@@ -1,1 +1,5 @@
 These scripts set up the Linux device tree for use with the LED panel FPGA bitfile. The GPMC bus has been slowed down versus the scripts shipped with the LogiBone board.
+
+If using the logibone_ra2_base_131021.img Ubuntu image, use the device tree setup files in the ra2 ubuntu image directory.
+
+If using the logibone_r1_ubuntu_v4.img Ubuntu image, follow the instructions in uEnv.txt_Edits.txt inside the r01 ubuntu image directory then use the device tree setup files in the r01 ubuntu image directory.
