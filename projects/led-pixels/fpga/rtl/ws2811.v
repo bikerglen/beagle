@@ -51,7 +51,7 @@ dpram512x24 dpram512x24
     .clka   (wr_clk),
     .wea    (wr),
     .addra  (wr_addr),
-    .dina   ({wr_data[15:8],wr_data[23:16],wr_data[7:0]}),
+    .dina   ({wr_data[23:16],wr_data[15:8],wr_data[7:0]}),
     .clkb   (clk),
     .addrb  (rd_addr),
     .doutb  (rd_data)
