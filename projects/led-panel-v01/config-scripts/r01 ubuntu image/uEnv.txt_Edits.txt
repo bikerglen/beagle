@@ -4,7 +4,7 @@ sudo vi /mnt/boot/uEnv.txt
 
 change optargs to:
 
-optargs=capemgr.disable_partno=BB-BONE-EMMC-2G,BB-BONELT-HDMI,BB-BONELT-HDMIN
+optargs=capemgr.disable_partno=BB-BONE-EMMC-2G,BB-BONELT-HDMI,BB-BONELT-HDMIN,BB-BONE-LOGIBONE
 
 sudo umount /mnt/boot
 sudo shutdown -h now
