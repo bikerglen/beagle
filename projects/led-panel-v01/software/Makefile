@@ -21,7 +21,7 @@
 
 CFLAGS:=-fno-omit-frame-pointer -g
 
-all: runcircle runperlin runwash runtwinkle runwipe blank picture blank_n blank_n2
+all: runcircle runperlin runwash runtwinkle runwipe blank picture blank
 
 runcircle: runcircle.o pattern.o circle.o globals.o
 	g++ $(CFLAGS) -o runcircle $^
