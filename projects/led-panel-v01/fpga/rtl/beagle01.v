@@ -101,44 +101,6 @@ clkgen clkgen
 
 
 //---------------------------------------------------------------------------------------------
-// blink the LEDs
-//
-
-reg [23:0] counter50;
-
-always @ (posedge clk50 or negedge rst_n)
-begin
-	if (!rst_n)
-	begin
-		counter50 <= 0;
-	end
-	else
-	begin
-		counter50 <= counter50 + 1;
-	end
-end
-
-assign led[0] = counter50[23];
-
-
-reg [23:0] counter10;
-
-always @ (posedge clk10 or negedge rst_n)
-begin
-	if (!rst_n)
-	begin
-		counter10 <= 0;
-	end
-	else
-	begin
-		counter10 <= counter10 + 1;
-	end
-end
-
-assign led[1] = counter10[23];
-
-
-//---------------------------------------------------------------------------------------------
 // gpmc bus interface
 //
 
@@ -168,51 +130,6 @@ gpmc_target gpmc_target
 );
 
 
-//---------------------------------------------------------------------------------------------
-// gpmc test registers
-//
-
-reg [15:0] reg0, reg1, reg2, reg3;
-
-always @ (posedge clk100 or negedge rst_n)
-begin
-	if (!rst_n)
-	begin
-		reg0 <= 0;
-		reg1 <= 0;
-		reg2 <= 0;
-		reg3 <= 0;
-		
-		sb_rd_data <= 16'hffff;
-	end
-	else
-	begin
-        if (sb_wr)
-        begin
-            case (sb_addr)
-                0: reg0 <= sb_wr_data;
-                1: reg1 <= sb_wr_data;
-                2: reg2 <= sb_wr_data;
-                3: reg3 <= sb_wr_data;
-            endcase
-        end
-
-        if (sb_rd)
-        begin
-            case (sb_addr)
-                0: sb_rd_data <= reg0;
-                1: sb_rd_data <= reg1;
-                2: sb_rd_data <= reg2;
-                3: sb_rd_data <= reg3;
-				4: sb_rd_data <= 16'hdead;
-				5: sb_rd_data <= 16'hbeef;
-				6: sb_rd_data <= 16'hcafe;
-				7: sb_rd_data <= 16'hfeed;
-            endcase
-        end
-	end
-end
-
 
 //---------------------------------------------------------------------------------------------
 // 32 x 32 LED Matrix Registers
@@ -224,6 +141,10 @@ reg [10:0] mtrx_wr_addr;
 reg [11:0] mtrx_wr_data;
 reg mtrx_select_yy;
 reg mtrx_current;
+reg auto_buffer_select;
+
+assign led[0] = sb_addr[11] && sb_addr[10];
+assign led[1] = mtrx_select;
 
 always @ (posedge clk100 or negedge rst_n)
 begin
@@ -234,6 +155,7 @@ begin
 		mtrx_wr_addr <= 0;
 		mtrx_wr_data <= 0;
 		mtrx_select_yy <= 0;
+		auto_buffer_select <= 1;
 	end
 	else
 	begin
@@ -242,24 +164,27 @@ begin
 
 		if (sb_wr)
 		begin
-			case (sb_addr)
+			if (2048 > sb_addr) begin
+				mtrx_wr <= 1;
+				mtrx_wr_addr <= sb_addr;
+				mtrx_wr_data <= sb_wr_data[11:0];
+				if ( 1 == auto_buffer_select ) begin
+					if (0 == sb_addr)
+						mtrx_select_yy <= 1;
+					if (1024 == sb_addr)
+						mtrx_select_yy <= 0;
 
-				8: begin
-					mtrx_addr <= sb_wr_data[10:0];
+					if (1022 == sb_addr)
+						mtrx_select_yy <= 0;
+					if (2046 == sb_addr)
+						mtrx_select_yy <= 1;
 				end
-
-				9: begin
-					mtrx_addr <= mtrx_addr + 1;
-					mtrx_wr <= 1;
-					mtrx_wr_addr <= mtrx_addr[10:0];
-					mtrx_wr_data <= sb_wr_data[11:0];
-				end
-
-				10: begin
-					mtrx_select_yy <= sb_wr_data[0];
-				end
-
-			endcase
+			end else begin
+				case (sb_addr)
+				2048: mtrx_select_yy <= sb_wr_data[0];
+				2049: auto_buffer_select <= sb_wr_data[0];
+				endcase
+			end
 		end
 	end
 end
