@@ -21,7 +21,7 @@
 
 	/* state the resources this cape uses */
 	exclusive-use =
-		/* the pin header uses */
+				/* the pin header uses */
 		"P8.25",	/* gpmc: gpmc_ad0 */
 		"P8.24",	/* gpmc: gpmc_ad1 */
 		"P8.5",		/* gpmc: gpmc_ad2 */
@@ -38,14 +38,17 @@
 		"P8.11",	/* gpmc: gpmc_ad13 */
 		"P8.16",	/* gpmc: gpmc_ad14 */
 		"P8.15",	/* gpmc: gpmc_ad15 */
-		"P9.13",	/* gpmc: gpmc_wpn */
+		"P9.12",	/* gpmc: gpmc_ben1 */
 		"P8.21",	/* gpmc: gpmc_csn1 */
 		"P8.18",	/* gpmc: gpmc_clk */
 		"P8.7",		/* gpmc: gpmc_advn_ale */
 		"P8.8",		/* gpmc: gpmc_oen_ren */
 		"P8.10",	/* gpmc: gpmc_wen */
 		"P8.9",		/* gpmc: gpmc_ben0_cle */
-
+		"P9.28",
+		"P9.29",
+		"P9.30",
+		"P9.31",
 		"gpmc",
 		/* the reset pin */
 		"eMMC_RSTn";
@@ -59,37 +62,40 @@
 
 			gpmc_pins: pinmux_gpmc_pins {
 				pinctrl-single,pins = <
-					0x000 0x20	/* gpmc_ad0.gpmc_ad0 MODE0 | INPUT | PULLUP */
-					0x004 0x20	/* gpmc_ad1.gpmc_ad1 MODE0 | INPUT | PULLUP */
-					0x008 0x20	/* gpmc_ad2.gpmc_ad2 MODE0 | INPUT | PULLUP */
-					0x00C 0x20	/* gpmc_ad3.gpmc_ad3 MODE0 | INPUT | PULLUP */
-					0x010 0x20	/* gpmc_ad4.gpmc_ad4 MODE0 | INPUT | PULLUP */
-					0x014 0x20	/* gpmc_ad5.gpmc_ad5 MODE0 | INPUT | PULLUP */
-					0x018 0x20	/* gpmc_ad6.gpmc_ad6 MODE0 | INPUT | PULLUP */
-					0x01C 0x20	/* gpmc_ad7.gpmc_ad7 MODE0 | INPUT | PULLUP */
-					0x020 0x20	/* gpmc_ad8.gpmc_ad8 MODE0 | INPUT | PULLUP */
-					0x024 0x20	/* gpmc_ad9.gpmc_ad9 MODE0 | INPUT | PULLUP */
-					0x028 0x20	/* gpmc_ad10.gpmc_ad10 MODE0 | INPUT | PULLUP */
-					0x02C 0x20	/* gpmc_ad11.gpmc_ad11 MODE0 | INPUT | PULLUP */
-					0x030 0x20	/* gpmc_ad12.gpmc_ad12 MODE0 | INPUT | PULLUP */
-					0x034 0x20	/* gpmc_ad13.gpmc_ad13 MODE0 | INPUT | PULLUP */
-					0x038 0x20	/* gpmc_ad14.gpmc_ad14 MODE0 | INPUT | PULLUP */
-					0x03C 0x20	/* gpmc_ad15.gpmc_ad15 MODE0 | INPUT | PULLUP */
-					0x080 0x20	/* gpmc_cscn1.gpmc_cscn1 MODE0 | OUTPUT */
-					0x08C 0x00	/* gpmc_clk.gpmc_clk MODE0 | INPUT */
-					0x090 0x00	/* gpmc_advn_ale.gpmc_advn_ale MODE0 | OUTPUT */
-					0x094 0x20	/* gpmc_oen_ren.gpmc_oen_ren MODE0 | OUTPUT */
-					0x098 0x20	/* gpmc_wen.gpmc_wen MODE0 | OUTPUT */
-					0x09C 0x20	/* gpmc_ben0_cle.gpmc_ben0_cle MODE0 | OUTPUT */
-					0x078 0x20	/* gpmc_ben1_cle.gpmc_ben1_cle MODE0 | OUTPUT */
+					0x000 0x30	/* gpmc_ad0.gpmc_ad0 MODE0 | INPUT | PULLUP */
+					0x004 0x30	/* gpmc_ad1.gpmc_ad1 MODE0 | INPUT | PULLUP */
+					0x008 0x30	/* gpmc_ad2.gpmc_ad2 MODE0 | INPUT | PULLUP */
+					0x00C 0x30	/* gpmc_ad3.gpmc_ad3 MODE0 | INPUT | PULLUP */
+					0x010 0x30	/* gpmc_ad4.gpmc_ad4 MODE0 | INPUT | PULLUP */
+					0x014 0x30	/* gpmc_ad5.gpmc_ad5 MODE0 | INPUT | PULLUP */
+					0x018 0x30	/* gpmc_ad6.gpmc_ad6 MODE0 | INPUT | PULLUP */
+					0x01C 0x30	/* gpmc_ad7.gpmc_ad7 MODE0 | INPUT | PULLUP */
+					0x020 0x30	/* gpmc_ad8.gpmc_ad8 MODE0 | INPUT | PULLUP */
+					0x024 0x30	/* gpmc_ad9.gpmc_ad9 MODE0 | INPUT | PULLUP */
+					0x028 0x30	/* gpmc_ad10.gpmc_ad10 MODE0 | INPUT | PULLUP */
+					0x02C 0x30	/* gpmc_ad11.gpmc_ad11 MODE0 | INPUT | PULLUP */
+					0x030 0x30	/* gpmc_ad12.gpmc_ad12 MODE0 | INPUT | PULLUP */
+					0x034 0x30	/* gpmc_ad13.gpmc_ad13 MODE0 | INPUT | PULLUP */
+					0x038 0x30	/* gpmc_ad14.gpmc_ad14 MODE0 | INPUT | PULLUP */
+					0x03C 0x30	/* gpmc_ad15.gpmc_ad15 MODE0 | INPUT | PULLUP */
+					0x080 0x08	/* gpmc_cscn1.gpmc_cscn1 MODE0 | OUTPUT */
+					0x08C 0x28	/* gpmc_clk.gpmc_clk MODE0 | INPUT */
+					0x090 0x08	/* gpmc_advn_ale.gpmc_advn_ale MODE0 | OUTPUT */
+					0x094 0x08	/* gpmc_oen_ren.gpmc_oen_ren MODE0 | OUTPUT */
+					0x098 0x08	/* gpmc_wen.gpmc_wen MODE0 | OUTPUT */
+					0x09C 0x08	/* gpmc_ben0_cle.gpmc_ben0_cle MODE0 | OUTPUT */
+					0x078 0x08	/* gpmc_ben1_cle.gpmc_ben1_cle MODE0 | OUTPUT */
 				>;
 			};
-		
+
 			fpga_config_pins: pinmux_fpga_config_pins {
 				pinctrl-single,pins = <
 					/* config clk and data */
-					0x198 0x37      /*  spi1_d1 MODE3 | INPUT | PULLUP , serial data config */
-					0x190 0x37	/* spi1_sclk MODE3 | INPUT | PULLUP, serial clock config  */
+					0x190 0x33    /* P9_31 = mcasp0_aclkx.spi1_sclk                 , OUTPUT_PULLUP | MODE3 */
+                    			0x194 0x33    /* P9_29 = mcasp0_fsx.spi1_d0                     , INPUT_PULLUP  | MODE3 */
+                    			0x198 0x13    /* P9_30 = mcasp0_axr0.spi1_d1                     , OUTPUT_PULLUP | MODE3 */
+                    			0x19c 0x13    /* P9_28 = mcasp0_ahclkr.spi1_cs0                 , OUTPUT_PULLUP | MODE3 */
+
 				>;
 			};
 		};
@@ -188,22 +194,22 @@
 	};
 
 	fragment@2 {
-		target = <&ocp>;
+        target = <&spi1>;
+        __overlay__ {
 
-		__overlay__ {
+            #address-cells     = <1>;
+            #size-cells     = <0>;
+            status            = "okay";
+            pinctrl-names    = "default";
+            pinctrl-0        = <&fpga_config_pins>;
 
-			status = "okay";
-			pinctrl-names = "default";
-			pinctrl-0 = <&fpga_config_pins>;
-
-			ssi_config{
-				pin-names = "ssi:clk","ssi:data";
-				gpios = <&gpio4 14 0
-					&gpio4 16 0>;
-			};
-
-		};
-	};
+            spidev@1{
+                compatible           = "linux,spidev";
+                reg               = <0>;
+                spi-max-frequency = <48000000>;
+            };
+        };
+    };
 
  };
 

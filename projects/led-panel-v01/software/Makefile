@@ -19,7 +19,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #==============================================================================================
 
-CFLAGS:=-fno-omit-frame-pointer -g
+CFLAGS:=-fno-omit-frame-pointer -O2
 
 all: runcircle runperlin runwash runtwinkle runwipe blank picture blank
 
