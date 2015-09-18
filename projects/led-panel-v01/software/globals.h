@@ -22,9 +22,15 @@
 #ifndef __globals_h_
 #define __globals_h_
 
+#include <unistd.h>
+#include <stdint.h>
+
 #define DISPLAY_WIDTH  32
 #define DISPLAY_HEIGHT 32
+#define DISPLAY_BUFFER_SIZE (DISPLAY_WIDTH*DISPLAY_HEIGHT*sizeof(uint16_t))
 
 extern uint16_t gLevels[DISPLAY_HEIGHT][DISPLAY_WIDTH];
-
+extern int gFd;
+extern int gBuffer;
+extern void WriteLevels (void);
 #endif

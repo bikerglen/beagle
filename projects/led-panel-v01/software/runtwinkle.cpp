@@ -41,15 +41,6 @@ using namespace std;
 #include "pattern.h"
 #include "twinkle.h"
 
-// address register
-#define FPGA_PANEL_ADDR_REG 0x0010
-
-// data register
-#define FPGA_PANEL_DATA_REG 0x0012
-
-// buffer select register
-#define FPGA_PANEL_BUFFER_REG 0x0014
-
 // file descriptor for FPGA memory device
 int gFd = 0;
 
@@ -65,8 +56,6 @@ Twinkle *gPattern = NULL;
 // prototypes
 void Quit (int sig);
 void BlankDisplay (void);
-void Write16 (uint16_t address, uint16_t data);
-void WriteLevels (void);
 void timer_handler (int signum);
 
 int main (int argc, char *argv[])
@@ -142,42 +131,6 @@ void BlankDisplay (void)
     // send levels to board
     WriteLevels ();
 }
-
-
-void Write16 (uint16_t address, uint16_t data)
-{
-    pwrite (gFd, &data, 2, address);
-}
-
-
-void WriteLevels (void)
-{
-    int row, col;
-
-    // ping pong between buffers
-    if (gBuffer == 0) {
-        Write16 (FPGA_PANEL_ADDR_REG, 0x0000);
-    } else {
-        Write16 (FPGA_PANEL_ADDR_REG, 0x0400);
-    }
-
-    // write data to selected buffer
-    for (row = 0; row < DISPLAY_HEIGHT; row++) {
-        for (col = 0; col < DISPLAY_WIDTH; col++) {
-            Write16 (FPGA_PANEL_DATA_REG, gLevels[row][col]);
-        }
-    }
-
-    // make that buffer active
-    if (gBuffer == 0) {
-        Write16 (FPGA_PANEL_BUFFER_REG, 0x0000);
-        gBuffer = 1;
-    } else {
-        Write16 (FPGA_PANEL_BUFFER_REG, 0x0001);
-        gBuffer = 0;
-    }
-}
-
 
 void timer_handler (int signum)
 {

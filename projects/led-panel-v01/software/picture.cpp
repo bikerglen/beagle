@@ -14,24 +14,20 @@
 #include <memory.h>
 
 #include "gammalut.h"
+#include "globals.h"
 
-void write16 (uint16_t addr, uint16_t data);
 
-int fd = 0;
+uint16_t gLevels[DISPLAY_HEIGHT][DISPLAY_WIDTH];
+int gFd = 0;
+int gBuffer = 0;
 
 int main (int argc, char *argv[])
 {
     // open fpga memory device
-    fd = open ("/dev/logibone_mem", O_RDWR | O_SYNC);
+    gFd = open ("/dev/logibone_mem", O_RDWR | O_SYNC);
 
     // open raw image data
     FILE *fin = fopen (argv[1], "rb");
-
-    // set address to buffer 0
-    write16 (0x0010, 0x0000);
-
-    // display buffer 0
-    write16 (0x0014, 0x0000);
 
     // read image data from file and write to display
     for (int row = 0; row < 32; row++) {
@@ -43,21 +39,17 @@ int main (int argc, char *argv[])
             g = gammaLut[g];
             b = gammaLut[b];
             uint16_t data = (r<<8) | (g<<4) | b;
-            write16 (0x0012, data);
+	    gLevels[col][row] = data;
         }
     }
-    
+
+    WriteLevels();
+ 
     // close image file
     fclose (fin);
 
     // close fpga device
-    close (fd);
+    close (gFd);
 
     return 0;
-}
-
-
-void write16 (uint16_t addr, uint16_t data)
-{
-    pwrite (fd, &data, 2, addr);
 }

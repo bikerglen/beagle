@@ -13,36 +13,29 @@
 #include <signal.h>
 #include <memory.h>
 
-void write16 (uint16_t addr, uint16_t data);
+#include "globals.h"
 
-int fd = 0;
+uint16_t gLevels[DISPLAY_HEIGHT][DISPLAY_WIDTH];
+int gFd = 0;
+int gBuffer = 0;
 
 int main (int argc, char *argv[])
 {
     // open fpga memory device
-    fd = open ("/dev/logibone_mem", O_RDWR | O_SYNC);
-
-    // set address to buffer 0
-    write16 (0x0010, 0x0000);
-
-    // display buffer 0
-    write16 (0x0014, 0x0000);
+    gFd = open ("/dev/logibone_mem", O_RDWR | O_SYNC);
 
     // fill buffer 0 with black
     for (int row = 0; row < 32; row++) {
         for (int col = 0; col < 32; col++) {
-            write16 (0x0012, 0x0000);
+            gLevels[row][col] = 0;
         }
     }
     
+    WriteLevels();
+
     // close fpga device
-    close (fd);
+    close (gFd);
 
     return 0;
 }
 
-
-void write16 (uint16_t addr, uint16_t data)
-{
-    pwrite (fd, &data, 2, addr);
-}

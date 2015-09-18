@@ -19,61 +19,66 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #==============================================================================================
 
-all: runcircle runperlin runwash runtwinkle runwipe blank picture
+CFLAGS:=-fno-omit-frame-pointer -g
 
-runcircle: runcircle.o pattern.o circle.o 
-	g++ -o runcircle runcircle.o pattern.o circle.o 
+all: runcircle runperlin runwash runtwinkle runwipe blank picture blank_n blank_n2
 
-runperlin: runperlin.o pattern.o perlin.o 
-	g++ -o runperlin runperlin.o pattern.o perlin.o 
+runcircle: runcircle.o pattern.o circle.o globals.o
+	g++ $(CFLAGS) -o runcircle $^
 
-runwash: runwash.o pattern.o wash.o 
-	g++ -o runwash runwash.o pattern.o wash.o 
+runperlin: runperlin.o pattern.o perlin.o globals.o
+	g++ $(CFLAGS) -o runperlin $^
 
-runtwinkle: runtwinkle.o pattern.o twinkle.o 
-	g++ -o runtwinkle runtwinkle.o pattern.o twinkle.o 
+runwash: runwash.o pattern.o wash.o globals.o
+	g++ $(CFLAGS) -o runwash $^
 
-runwipe: runwipe.o pattern.o wipe.o 
-	g++ -o runwipe runwipe.o pattern.o wipe.o 
+runtwinkle: runtwinkle.o pattern.o twinkle.o globals.o
+	g++ $(CFLAGS) -o runtwinkle $^
+
+runwipe: runwipe.o pattern.o wipe.o globals.o
+	g++ $(CFLAGS) -o runwipe $^
+
+globals.o: globals.cpp globals.h
+	g++ $(CFLAGS) -c globals.cpp
 
 runcircle.o: runcircle.cpp globals.h pattern.h circle.h
-	g++ -c runcircle.cpp
+	g++ $(CFLAGS) -c runcircle.cpp
 
 runperlin.o: runperlin.cpp globals.h pattern.h perlin.h
-	g++ -c runperlin.cpp
+	g++ $(CFLAGS) -c runperlin.cpp
 
 runwash.o: runwash.cpp globals.h pattern.h wash.h
-	g++ -c runwash.cpp
+	g++ $(CFLAGS) -c runwash.cpp
 
 runtwinkle.o: runtwinkle.cpp globals.h pattern.h twinkle.h
-	g++ -c runtwinkle.cpp
+	g++ $(CFLAGS) -c runtwinkle.cpp
 
 runwipe.o: runwipe.cpp globals.h pattern.h wipe.h
-	g++ -c runwipe.cpp
+	g++ $(CFLAGS) -c runwipe.cpp
 
 pattern.o: pattern.cpp globals.h gammalut.h pattern.h
-	g++ -c pattern.cpp
+	g++ $(CFLAGS) -c pattern.cpp
 
 circle.o: circle.cpp globals.h pattern.h circle.h
-	g++ -c circle.cpp
+	g++ $(CFLAGS) -c circle.cpp
 
 perlin.o: perlin.cpp globals.h pattern.h perlin.h
-	g++ -c perlin.cpp
+	g++ $(CFLAGS) -c perlin.cpp
 
 wash.o: wash.cpp globals.h pattern.h wash.h
-	g++ -c wash.cpp
+	g++ $(CFLAGS) -c wash.cpp
 
 twinkle.o: twinkle.cpp globals.h pattern.h twinkle.h
-	g++ -c twinkle.cpp
+	g++ $(CFLAGS) -c twinkle.cpp
 
 wipe.o: wipe.cpp globals.h pattern.h wipe.h
-	g++ -c wipe.cpp
+	g++ $(CFLAGS) -c wipe.cpp
 
-blank: blank.cpp
-	g++ -o blank blank.cpp
+blank: blank.cpp globals.cpp
+	g++ $(CFLAGS) -o blank $^
 
 picture: picture.cpp gammalut.h
-	g++ -o picture picture.cpp
+	g++ $(CFLAGS) -o picture $< globals.cpp
 
 clean:
-	rm -f runcircle runperlin runwash runtwinkle runwipe blank picture runcircle.o runperlin.o runwash.o runtwinkle.o pattern.o circle.o perlin.o wash.o twinkle.o wipe.o runwipe.o
+	rm -f runcircle runperlin runwash runtwinkle runwipe blank picture runcircle.o runperlin.o runwash.o runtwinkle.o pattern.o circle.o perlin.o wash.o twinkle.o wipe.o runwipe.o globals.o
